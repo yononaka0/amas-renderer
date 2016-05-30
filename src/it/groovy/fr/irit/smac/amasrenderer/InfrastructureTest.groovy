@@ -36,20 +36,6 @@ class InfrastructureTest extends GuiSpecification{
         graphService = GraphService.getInstance()
 
     }
-
-    def "check if the infrastructure is modified by doubleclicking on the textfield"() {
-
-        when:
-        println "infrastructure through textfield"
-        fx.doubleClickOn("#infrastructureLabel")
-                        .write("Michel c'est le Bresil!")
-                        .type(KeyCode.ENTER)
-
-        then:
-        Label label = (Label) rootLayout.lookup("#infrastructureLabel")
-        TextField txtField = (TextField) rootLayout.lookup("#infrastructureTextField")
-        "Michel c'est le Bresil!" == label.getText() && label.getText() == txtField.getText()
-    }
     
     def "check if the infrastructure is modified by using the button"() {
         
@@ -68,6 +54,19 @@ class InfrastructureTest extends GuiSpecification{
         
         when:
         println "infrastructure through textfield"
+        fx.clickOn("#infrastructureButton")
+                        .write("")
+                        .type(KeyCode.ENTER)
+
+        then:
+        ImageView icon = (ImageView) rootLayout.lookup("#infrastructureWarningIcon")
+        Label label = (Label) rootLayout.lookup("#infrastructureWarningLabel")
+        icon.isVisible() && label.isVisible()
+    }
+    def "check if the infrastructure is pre defined at program launch"() {
+        
+        when:
+        println "infrastructure predefined"
         fx.clickOn("#infrastructureButton")
                         .write("")
                         .type(KeyCode.ENTER)
